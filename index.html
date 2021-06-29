@@ -1,0 +1,127 @@
+<html>
+<body style="background-color:powderblue;">
+<style>
+body {
+  background-image: url('kbs_back.gif');
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover;
+}
+div.transbox {
+  border-radius: 50px;
+  margin: 30px;
+  background-color: #ffffff;
+  border: 1px solid black;
+  opacity: 0.6;
+}
+div.transbox p {
+  margin: 2%;
+  font-weight: bold;
+  color: #000000;
+}
+#inp
+{
+	border-width: 0px;
+	border: none;
+	margin: 1%;
+	outline: none;
+}
+</style>
+</body>
+<script type="text/javascript">
+     function Expand(obj) {
+      if (!obj.savesize) obj.savesize=obj.size;
+      obj.size=Math.max(obj.savesize,obj.value.length);
+     }
+     function k8s(){
+	     var xhr = new XMLHttpRequest();
+	     cmd = document.getElementById("inp").value;
+	     xhr.open("GET",`http://13.234.21.17/cgi-bin/k8s_api.py?q=${cmd}`,false);
+	     xhr.send();
+	     var output = xhr.responseText;
+	     document.getElementById("out").innerHTML = output;
+     }
+</script>
+<script type="text/javascript">
+     var inpu = document.getElementById("inp");
+     inpu.addEventListener("keyup", function(event){
+	     if(event.keyCode == 13){
+		     event.preventDefault();
+		     document.getElementById("btn").click();
+	     }
+     });
+</script>
+<div class="transbox">
+	<input id="inp" placeholder="What can I do for you?"  onkeyup="Expand(this);">
+	<button id="btn" onclick="k8s();">Submit</button>
+	<button onClick="window.location.reload();">Reload</button>
+</div>
+<style>
+div.transboxout {
+  border-radius: 2px;
+  margin: 30px;
+  background-color: #ffffff;
+  border: 1px solid black; 
+  opacity: 0.6;
+  padding: 5px;
+}
+div.transboxout p {
+  margin: auto;
+  font-weight: bold;
+  color: #000000;
+}
+</style>
+<style>
+.dropbtn {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 8px;
+  font-size: 10px;
+  border: 1px solid black;
+  font-weight: bold;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 20px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+</style>
+<pre>
+<div class="transboxout" id="out">
+Welcome to the web portal of Kubernetes, you can enter you requirements in the box above, it can do the following things for, refresh after each use(development in progress):
+<div class="dropdown">
+  <button class="dropbtn"><img src="hover.gif" width="50" height="35"></button>
+  <div class="dropdown-content">
+    <a href="#">Create Pods</a>
+    <a href="#">Create Deployment</a>
+    <a href="#">Expose port</a>
+    <a href="#">Replicate</a>
+    <a href="#">Clean all</a>
+    <a href="#">Delete resources</a>
+  </div>
+</div>
+</div>
+</pre>
+</html>
